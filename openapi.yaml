@@ -1,0 +1,74 @@
+openapi: 3.0.3
+info:
+  title: Swagger Petstore - OpenAPI 3.0
+  description: AWS Test app
+  version: 1.0.11
+servers:
+  - url: https://dixi2cp20f.execute-api.eu-central-1.amazonaws.com/prod/
+paths:
+  /products:
+    get:
+      summary: Get product by ID
+      operationId: getProductByList
+      responses:
+        "200":
+          description: A list of products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: "1"
+                    title:
+                      type: string
+                      example: "Product 1"
+                    description:
+                      type: string
+                      example: "Product 1 description"
+                    price:
+                      type: number
+                      example: 100
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Products not found
+  /products/{productId}:
+    get:
+      summary: Get product by ID
+      operationId: getProductById
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          description: ID of the product to retrieve (only 50 products are in the database)
+          schema:
+            type: integer # Измените тип на integer, чтобы использовать ограничения
+            example: 1 # Пример значения
+      responses:
+        "200":
+          description: A product
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: "1"
+                  title:
+                    type: string
+                    example: "Product 1"
+                  description:
+                    type: string
+                    example: "Product 1 description"
+                  price:
+                    type: number
+                    example: 100
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Product not found
